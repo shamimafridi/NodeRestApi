@@ -40,10 +40,11 @@ mongoose.connect(config.database); // connect to database
 
 // catch 404 and forward to error handler
 
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //auth.checkToke(req, res, next);
+app.use(function (req, response, next) {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Credentials", "true");
+  response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers,x-access-token, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"); //auth.checkToke(req, res, next);
   next()
   console.log('Accessing the secret section ...')
   //next() // pass control to the next handler

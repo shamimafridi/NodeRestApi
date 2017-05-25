@@ -34,15 +34,13 @@ router.get('/users', auth.checkToken, function (request, response, next) {
   console.log('start get users api')
   User.paginate({}, {
       page: request.query.page,
-      limit: request.query.limit
+      limit: request.query.limit,
+      sort:{name:-1}
     },
     function (error, pageCount, result, itemCount) {
       if (error) {
         console.error(error);
-        response.writeHead(500, {
-          'Content-Type': 'text/plain'
-        });
-        response.end('Internal server error');
+               response.end('Internal server error');
         return;
       }
       response.json({
