@@ -5,7 +5,7 @@ var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 
 var authenticate = {
-    checkToke: (req, res, next) => {
+    checkToken: (req, res, next) => {
         
             var token = req.body.token || req.query.token || req.headers['x-access-token'];
             console.log(req.path);

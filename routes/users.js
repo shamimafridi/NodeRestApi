@@ -13,7 +13,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 //   res.send(data.getJsonData());
 // });
 
-router.get('/',  function (req, res) {
+router.get('/', function (req, res) {
   res.json({
     message: 'Welcome to the coolest API on earth!'
   });
@@ -30,15 +30,33 @@ router.get('/users/:id', (req, res) => {
   }
 
 })
-router.get('/users', auth.checkToke, function (req, res, next) {
-  User.find({}, function (err, users) {
-    res.json(users);
-  });
+router.get('/users', auth.checkToken, function (request, response, next) {
+  console.log('start get users api')
+  User.paginate({}, {
+      page: request.query.page,
+      limit: request.query.limit
+    },
+    function (error, pageCount, result, itemCount) {
+      if (error) {
+        console.error(error);
+        response.writeHead(500, {
+          'Content-Type': 'text/plain'
+        });
+        response.end('Internal server error');
+        return;
+      }
+      response.json({
+        object: 'users',
+        page_count: pageCount,
+        result: result
+      });
+    });
 
 
 });
 router.post('/users', function (req, res) {
   console.log('my log')
+
   // create a sample user
   var userModel = new User({
     name: req.body.name,

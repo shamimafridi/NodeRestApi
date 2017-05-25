@@ -9,7 +9,9 @@
         "request": "attach",
         "name": "Attach to Process",
         "processId": "${command:PickProcess}",
+        "sourceMaps": false,
         "port": 8000
+        //"outDir":null
     },
         {
             "type": "node",
@@ -21,7 +23,7 @@
             "type": "node",
             "request": "attach",
             "name": "Attach to Port",
-            "address": "localhost",
+            "address": "localhost:3000",
             "port": 8000
         }
     ]
