@@ -33,7 +33,7 @@ router.get('/users/:id', (req, res) => {
 router.get('/users', auth.checkToken, function (request, response, next) {
   console.log('start get users api')
   User.paginate({}, {
-      page: request.query.page,
+      offset:  parseInt(request.query.offset),
       limit: request.query.limit,
       sort:{name:-1}
     },
